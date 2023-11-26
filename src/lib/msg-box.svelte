@@ -16,9 +16,7 @@
         </div>
         <div class="flex-shrink-0 h-10 w-10 rounded-full bg-gray-300"></div>
     </div>
-    
 {:else}
-
     <div class="flex w-full mt-2 space-x-3 max-w-xs">
         <div class="flex-shrink-0 h-10 w-10 rounded-full bg-gray-300"></div>
         <div>
