@@ -93,13 +93,13 @@
 
 <style>
     :global(body) {
-    margin: 0;
-    margin-top: 6%;
-    padding: 0;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+        margin: 0;
+        margin-top: 2%;
+        padding: 0;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
     
     }

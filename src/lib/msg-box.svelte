@@ -22,7 +22,7 @@
         <div>
             <span  class="text-xs text-gray-500 leading-none">{ userName }</span>
             <div class="bg-{dark ? "transparent" : "gray-300"} p-3 rounded-r-lg rounded-bl-lg">
-                <p id="{dark ? "outline" : ""}" class="text-sm">{ msg }</p>
+                <p style="color: {dark ? "black" : "white"}" class=" text-sm" id="{dark ? "outline" : ""}" >{ msg }</p>
             </div>
             
         </div>
@@ -36,6 +36,6 @@
         border-bottom-right-radius: 12px;
         border-bottom-left-radius: 12px;
         padding: 12px;
-        color: white;
+
     }
 </style>
