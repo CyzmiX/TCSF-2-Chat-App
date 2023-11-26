@@ -1,22 +1,33 @@
-<script>
-    import { createEventDispatcher } from "svelte";
+<script lang="ts">
+    import { createEventDispatcher, onMount } from "svelte";
 
     export let dark = true
     let dispatch = createEventDispatcher()
     let msg = ''
+    let msgs: HTMLDivElement;
+
+    onMount(() => {
+
+        var observer = new MutationObserver(() => {
+            msgs.scrollTop = msgs.scrollHeight;
+        });
+
+        var config = {childList: true};
+        observer.observe(msgs, config);
+    })
 </script>
 
-<div id="main"  class="flex flex-col flex-grow w-full max-w-xl bg-{dark ? "gray-800" : "white"} shadow-2xl  rounded-lg ">
-    <div class="flex flex-col flex-grow h-0 p-4  overflow-auto">
+<div id="main" class:light={!dark} class:dark={dark} class="flex flex-col flex-grow w-full max-w-xl shadow-2xl  rounded-lg ">
+    <div bind:this={msgs} class="flex flex-col flex-grow h-0 p-4  overflow-auto">
         
         <slot />
 
     </div>
-    {#if dark}
-        <hr class='line' />
-    {/if}
-    <div class="bg-gray-{dark ? "400" : "300"} p-4 flex">
-        <input bind:value={msg} id="msg" class="flex  {dark ? "text-white" : "" } mr-6 items-center h-10 w-full rounded px-3 text-sm" type="text" placeholder="Type your message…">
+
+        <hr  class:line={dark} class:wline={!dark} />
+
+    <div class="bg-{dark ? "gray-400" : "transparent"} p-4 flex">
+        <input bind:value={msg} id="msg" class="flex   text-white mr-6 items-center h-10 w-full rounded px-3 text-sm" type="text" placeholder="Type your message…">
         <button on:click={() => {
             dispatch('send', {
                 msg,
@@ -33,12 +44,22 @@
     .line {
         border-top: 1px solid rgb(67, 129, 235);
     }
-
+    .wline {
+        border-top: 1px solid rgba(200, 200, 200, 0.8);
+    }
     #main {
         height: 600px;
         border: 2px solid rgba(67, 129, 235, 0.5);
         padding: 8px;
         
+    }
+
+    .dark {
+        background-color: rgba(5, 5, 20, 0.7);
+    }
+
+    .light {
+        background-color: rgba(67, 89, 135, 0.85)
     }
 
     #msg {

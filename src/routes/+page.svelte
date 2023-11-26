@@ -4,6 +4,7 @@
     import MsgBox from "$lib/msg-box.svelte";
     import MsgsContainer from "$lib/msgs-container.svelte";
     import { onMount } from "svelte";
+    import { scale, slide } from "svelte/transition";
     
     let logged = false
 
@@ -42,6 +43,16 @@
         
         dark = window.matchMedia('(prefers-color-scheme: dark)').matches
 
+
+        Notification.requestPermission().then((permission) => {
+      // Si l'utilisateur accepte, créons une notification
+            if (permission === "granted") {
+                const notification = new Notification("Salut toi!", {
+                    body: "go fuck your self"
+                });
+            }
+        });
+
         window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
             dark = event.matches;
         });
@@ -79,13 +90,17 @@
 
 {#if dark !== undefined}
     {#if logged}
-        <MsgsContainer {dark} on:send={newMsg}>
-            {#each msgs as msg}
-                <MsgBox type={msg.type} userName={msg.userName} msg={msg.msg} />
-            {/each}
-        </MsgsContainer>
+        <div class="flex flex-col flex-grow w-full max-w-xl" transition:slide>
+            <MsgsContainer  {dark} on:send={newMsg}>
+                {#each msgs as msg}
+                    <MsgBox type={msg.type} userName={msg.userName} msg={msg.msg} />
+                {/each}
+            </MsgsContainer>
+        </div>
     {:else}
+
         <Login on:login={login}/>
+
     {/if}
 {:else}
     <h1 style="color: {dark ? "white" : "black"}">Loading..</h1>

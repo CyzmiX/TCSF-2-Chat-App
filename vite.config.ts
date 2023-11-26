@@ -2,7 +2,7 @@ import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig } from 'vite';
 import { Server } from 'socket.io';
 
-import type { PluginOption, UserConfig } from "vite";
+import type { PluginOption } from "vite";
 
 const socketioServer: PluginOption = {
   name: "socketioServer",
