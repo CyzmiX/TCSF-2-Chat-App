@@ -6,7 +6,7 @@
     let msg = ''
 </script>
 
-<div id="main"  class="flex flex-col flex-grow w-full max-w-xl bg-{dark ? "gray-800" : "white"} shadow-2xl  rounded-lg overflow-hidden">
+<div id="main"  class="flex flex-col flex-grow w-full max-w-xl bg-{dark ? "gray-800" : "white"} shadow-2xl  rounded-lg ">
     <div class="flex flex-col flex-grow h-0 p-4  overflow-auto">
         
         <slot />
@@ -35,12 +35,12 @@
     }
 
     #main {
-        height: 500px;
+        height: 600px;
+        border: 2px solid rgba(67, 129, 235, 0.5);
+        padding: 8px;
         
     }
-    #main:hover {
-        border: inset 2px solid rgb(67, 129, 235);
-    }
+
     #msg {
         background-color: transparent;
         border: 2px solid rgb(37 99 235);

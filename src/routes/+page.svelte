@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { io, Socket } from "socket.io-client";
     import Login from "$lib/login.svelte";
     import MsgBox from "$lib/msg-box.svelte";
     import MsgsContainer from "$lib/msgs-container.svelte";
@@ -11,16 +12,34 @@
         msg: string,
         type: "me" | "other"
     }
-
+    let userName = ''
     let msgs:  Msg[] = []
-
+    let socket: Socket;
     let dark: boolean | undefined = undefined;
     onMount(() => {
+
+        socket = io();
+
+        console.log(socket)
+
+
+
         if (localStorage.getItem('tcsf-login') !== null) {
             login(localStorage['tcsf-login']!)
         }
 
+        socket.emit('loggedin')
 
+        socket.on('msg', ({ msg, userName, type }) => {
+            msgs.push({
+                userName,
+                type,
+                msg,
+            })
+            msgs = msgs
+            console.log(localStorage['tcsf-login'])
+        })
+        
         dark = window.matchMedia('(prefers-color-scheme: dark)').matches
 
         window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
@@ -28,16 +47,21 @@
         });
         
     })
-
+    
     function newMsg(e: CustomEvent<any>) {
         msgs.push({
             userName: 'You',
-            type: 'other',
+            type: 'me',
             msg: e.detail.msg
         })
         msgs = msgs
+        socket.emit('msg', {
+            userName: localStorage['tcsf-login'],
+            type: 'other',
+            msg: e.detail.msg
+        })
     }
-    let userName = ''
+    
     function login(e: CustomEvent<any> | string) {
         if (typeof e === "string") {
 
@@ -47,6 +71,7 @@
             logged = true;
             userName = e.detail.userName
             localStorage.setItem('tcsf-login', userName)
+
         }
 
     }
