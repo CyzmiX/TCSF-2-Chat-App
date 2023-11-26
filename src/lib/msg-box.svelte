@@ -2,6 +2,7 @@
     export let type: "me" | "other" = "me";
     export let msg: string = "";
     export let userName: string = ""
+    export let dark = true
 </script>
 
 {#if type === "me"}
@@ -15,14 +16,15 @@
         </div>
         <div class="flex-shrink-0 h-10 w-10 rounded-full bg-gray-300"></div>
     </div>
-    <hr width="50%" class='line' />
+    
 {:else}
+
     <div class="flex w-full mt-2 space-x-3 max-w-xs">
         <div class="flex-shrink-0 h-10 w-10 rounded-full bg-gray-300"></div>
         <div>
-            <span class="text-xs text-gray-500 leading-none">{ userName }</span>
-            <div class="bg-gray-300 p-3 rounded-r-lg rounded-bl-lg">
-                <p class="text-sm">{ msg }</p>
+            <span  class="text-xs text-gray-500 leading-none">{ userName }</span>
+            <div class="bg-{dark ? "transparent" : "gray-300"} p-3 rounded-r-lg rounded-bl-lg">
+                <p id="{dark ? "outline" : ""}" class="text-sm">{ msg }</p>
             </div>
             
         </div>
@@ -30,9 +32,12 @@
 {/if}
 
 <style>
-    .line {
-        margin: 4px;
-        border-top: 1px solid rgba(67, 129, 235, 0.3);
-        margin-left: 25%;
+    #outline {
+        border: 1.5px solid rgba(67, 129, 235);
+        border-top-right-radius: 12px;
+        border-bottom-right-radius: 12px;
+        border-bottom-left-radius: 12px;
+        padding: 12px;
+        color: white;
     }
 </style>
