@@ -4,9 +4,12 @@
     let userName = ''
     let avatarUrl = ''
     function avatar(e: Event) {
-        if ([".jpg", '.png', '.gif'].includes(e.target?.files?.[0].split('.')[1])) {
+
+        if (["jpg", 'png', 'gif'].includes(e.target?.files?.[0].name.split('.')[1])) {
             avatarUrl = URL.createObjectURL(e.target?.files?.[0])
 
+           
+        } else {
             console.log('invalid fiel')
         }
     }
