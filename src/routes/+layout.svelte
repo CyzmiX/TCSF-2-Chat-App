@@ -9,21 +9,21 @@
 <slot />
 
 <style>
-  @media (pointer: fine), (pointer: none) {
+  /* @media (pointer: fine), (pointer: none) {
       :global(body) {
-      background: url("bg.svg");
-      background-repeat: no-repeat;
-      
-      background-position-y: 60vh;
+        background: url("bg.svg");
+        background-repeat: no-repeat;
+        
+        background-position-y: 60vh;
       }
   }
 
   @media (pointer: fine) and (any-pointer: coarse) {
       :global(body) {
-      background: url("bg.svg");
-      background-repeat: no-repeat;
-      
-      background-position-y: 60vh;
+        background: url("bg.svg");
+        background-repeat: no-repeat;
+        
+        background-position-y: 60vh;
       }
-  }
+  } */
 </style>

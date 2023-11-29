@@ -11,18 +11,29 @@ const socketioServer: PluginOption = {
       const io = new Server(server.httpServer);
 
       io.on("connection", (socket) => {
-		console.log(socket.id, " connected")
-		socket.on('loggedin', () => {
-			console.log('ff')
-		})
+		    console.log(socket.id, " connected")
+		    socket.on('loggedin', () => {
+			    console.log('ff')
+		    })
 
-		socket.on('msg', ({ msg, userName, type }) => {
-			socket.broadcast.emit('msg', {
-				msg,
-				type,
-				userName
-			})
-		})
+        socket.on('msg', ({ msg, userName, type, avatarSrc }) => {
+            socket.broadcast.emit('msg', {
+                msg,
+                type,
+                userName,
+                avatarSrc2: avatarSrc
+            })
+        })
+
+        socket.on('reply', ({ msg, userName, type, reply, avatarSrc }) => {
+          socket.broadcast.emit('reply', {
+            msg,
+            type,
+            userName,
+            reply,
+            avatarSrc2: avatarSrc
+          })
+        })
       });
     }
   },
